@@ -241,3 +241,24 @@
     background: white !important;
   }
 }
+
+/* Rain — garis hujan diagonal halus di hero */
+@keyframes rain-fall {
+  0%   { background-position: 0 0; }
+  100% { background-position: -60px 420px; }
+}
+.rain-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    98deg,
+    transparent 0px,
+    transparent 46px,
+    rgba(175, 211, 232, 0.16) 47px,
+    transparent 49px
+  );
+  animation: rain-fall 1.4s linear infinite;
+  -webkit-mask-image: linear-gradient(to bottom, black 10%, transparent 90%);
+  mask-image: linear-gradient(to bottom, black 10%, transparent 90%);
+}

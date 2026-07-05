@@ -47,11 +47,11 @@ function generatePlaceholder(item: MenuItem): string {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200">
     <defs>
       <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#7C1515"/>
-        <stop offset="100%" stop-color="#2D0808"/>
+        <stop offset="0%" stop-color="#1B5E86"/>
+        <stop offset="100%" stop-color="#081D2C"/>
       </linearGradient>
       <radialGradient id="glow" cx="50%" cy="45%" r="45%">
-        <stop offset="0%" stop-color="#A02020" stop-opacity="0.6"/>
+        <stop offset="0%" stop-color="#2A76A8" stop-opacity="0.6"/>
         <stop offset="100%" stop-color="transparent"/>
       </radialGradient>
     </defs>
@@ -59,7 +59,7 @@ function generatePlaceholder(item: MenuItem): string {
     <rect width="400" height="200" fill="url(#glow)"/>
     <text x="200" y="92" text-anchor="middle" font-size="54" opacity="0.9">${icon}</text>
     <text x="200" y="138" text-anchor="middle" font-family="system-ui,sans-serif" font-size="17" font-weight="700" fill="rgba(255,255,255,0.88)">${safeName}</text>
-    <text x="200" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="rgba(212,184,150,0.45)" letter-spacing="5">KOTA HUJAN</text>
+    <text x="200" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="rgba(175,211,232,0.45)" letter-spacing="5">KOTA HUJAN</text>
   </svg>`
   return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg)
 }
@@ -1027,7 +1027,7 @@ function MenuContent() {
           <div>
             <div className="font-sans text-lg font-black text-white tracking-widest uppercase leading-none">KOTA HUJAN</div>
             <div className="flex items-center gap-2 mt-0.5">
-              <div className="text-h-cream text-[0.5rem] tracking-[3px] uppercase font-semibold">Specialty Coffee</div>
+              <div className="text-h-cream text-[0.5rem] tracking-[3px] uppercase font-semibold">Kopi &amp; Teduh</div>
               {storeSettings && (() => {
                 const open = calcIsOpen(storeSettings)
                 return (

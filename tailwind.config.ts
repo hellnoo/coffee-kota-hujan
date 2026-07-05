@@ -9,17 +9,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Warm dark base — terinspirasi logo maroon + cream
-        'h-bg':     '#0c0a09',
-        'h-dark':   '#141010',
-        'h-card':   '#1b1614',
-        'h-border': '#2c2422',
-        // Brand maroon (fill: tombol, border, blok) — sesuai logo
-        'h-red':    '#7C1515',
-        'h-red-d':  '#5E0F0F',
-        // Cream/gold accent (teks aksen, detail premium) — sesuai logo
-        'h-cream':  '#D4B896',
-        'h-muted':  '#8a807a',
+        // Cool dark base — terinspirasi langit hujan & kabut
+        'h-bg':     '#070b0f',
+        'h-dark':   '#0d141b',
+        'h-card':   '#111a23',
+        'h-border': '#223140',
+        // Brand biru hujan (fill: tombol, border, blok)
+        'h-red':    '#1B5E86',
+        'h-red-d':  '#123F5C',
+        // Aksen kabut (teks aksen, detail premium)
+        'h-cream':  '#AFD3E8',
+        'h-muted':  '#7d8b96',
       },
       fontFamily: {
         sans:  ['var(--font-dm-sans)', 'sans-serif'],

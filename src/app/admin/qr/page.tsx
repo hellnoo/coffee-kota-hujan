@@ -131,7 +131,7 @@ export default function QRPage() {
               <div key={i} className="bg-h-card border border-h-border rounded-2xl overflow-hidden print:rounded-xl print:border print:border-gray-300 print:break-inside-avoid print:bg-white">
                 <div className="bg-h-bg print:bg-black px-3 pt-3 pb-1 text-center">
                   <div className="font-sans font-black text-white text-xs tracking-[4px] uppercase">KOTA HUJAN</div>
-                  <div className="text-h-cream text-[7px] tracking-[2px] uppercase font-semibold mt-0.5">Specialty Coffee</div>
+                  <div className="text-h-cream text-[7px] tracking-[2px] uppercase font-semibold mt-0.5">Kopi &amp; Teduh</div>
                 </div>
                 <div className="bg-h-red print:bg-red-600 px-2 py-1 text-center">
                   <span className="text-white text-[9px] font-black uppercase tracking-[3px]">↓ Scan Here ↓</span>

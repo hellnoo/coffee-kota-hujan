@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     default: 'Coffee Kota Hujan — Ternate',
     template: '%s | Kota Hujan',
   },
-  description: 'Coffee Kota Hujan di Ternate — specialty coffee, ruang nongkrong yang cozy, dan momen-momen terbaik. Scan QR di meja untuk pesan langsung dari HP.',
-  keywords: ['kafe ternate', 'coffee shop ternate', 'coffee kota hujan', 'specialty coffee ternate', 'tempat nongkrong ternate'],
+  description: 'Coffee Kota Hujan di Ternate — kopi hangat, tempat berteduh yang cozy, dan momen-momen terbaik saat hujan turun. Scan QR di meja untuk pesan langsung dari HP.',
+  keywords: ['kafe ternate', 'coffee shop ternate', 'coffee kota hujan', 'kedai kopi ternate', 'tempat nongkrong ternate'],
   manifest: '/manifest.json',
   appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: 'Kota Hujan' },
   icons: { icon: '/icon.svg', apple: '/icon.svg' },
@@ -29,25 +29,25 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'id_ID',
     title: 'Coffee Kota Hujan',
-    description: 'Specialty coffee & tempat nongkrong terbaik di Ternate. Scan QR di meja, pesan dari HP, langsung diantar.',
+    description: 'Kopi hangat & tempat berteduh paling nyaman di Ternate. Scan QR di meja, pesan dari HP, langsung diantar.',
     siteName: 'Kota Hujan Café',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Coffee Kota Hujan',
-    description: 'Specialty coffee & tempat nongkrong terbaik di Ternate.',
+    description: 'Kopi hangat & tempat berteduh paling nyaman di Ternate.',
   },
 }
 
 export const viewport: Viewport = {
-  themeColor: '#7C1515',
+  themeColor: '#1B5E86',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id">
       <head>
-        <meta name="theme-color" content="#7C1515" />
+        <meta name="theme-color" content="#1B5E86" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icon.svg" />
       </head>

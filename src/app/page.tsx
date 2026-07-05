@@ -81,10 +81,10 @@ function generatePlaceholder(item: MenuItem): string {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240">
     <defs>
       <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#7C1515"/><stop offset="100%" stop-color="#2D0808"/>
+        <stop offset="0%" stop-color="#1B5E86"/><stop offset="100%" stop-color="#081D2C"/>
       </linearGradient>
       <radialGradient id="glow" cx="50%" cy="45%" r="45%">
-        <stop offset="0%" stop-color="#A02020" stop-opacity="0.6"/>
+        <stop offset="0%" stop-color="#2A76A8" stop-opacity="0.6"/>
         <stop offset="100%" stop-color="transparent"/>
       </radialGradient>
     </defs>
@@ -92,7 +92,7 @@ function generatePlaceholder(item: MenuItem): string {
     <rect width="400" height="240" fill="url(#glow)"/>
     <text x="200" y="108" text-anchor="middle" font-size="58" opacity="0.9">${icon}</text>
     <text x="200" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="17" font-weight="700" fill="rgba(255,255,255,0.88)">${safeName}</text>
-    <text x="200" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="rgba(212,184,150,0.4)" letter-spacing="5">KOTA HUJAN</text>
+    <text x="200" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="rgba(175,211,232,0.4)" letter-spacing="5">KOTA HUJAN</text>
   </svg>`
   return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg)
 }
@@ -196,7 +196,7 @@ export default function Home() {
         <div className="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between">
           <div>
             <div className="font-sans font-black text-white tracking-widest text-lg uppercase leading-none">KOTA HUJAN</div>
-            <div className="text-h-cream text-[0.45rem] tracking-[3px] uppercase font-semibold mt-0.5">Specialty Coffee</div>
+            <div className="text-h-cream text-[0.45rem] tracking-[3px] uppercase font-semibold mt-0.5">Kopi &amp; Teduh</div>
           </div>
           <div className="flex items-center gap-2">
             <a href={IG} target="_blank" rel="noreferrer" aria-label="Instagram Kota Hujan"
@@ -223,16 +223,18 @@ export default function Home() {
         {/* Background glow */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="w-[520px] h-[520px] rounded-full animate-hero-glow"
-            style={{ background: 'radial-gradient(circle, rgba(124,21,21,0.42) 0%, rgba(124,21,21,0.12) 45%, transparent 70%)' }} />
+            style={{ background: 'radial-gradient(circle, rgba(27,94,134,0.42) 0%, rgba(27,94,134,0.12) 45%, transparent 70%)' }} />
         </div>
         {/* Grain overlay */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundSize: '200px' }} />
+        {/* Rain overlay */}
+        <div className="rain-overlay" />
 
         <div className="relative z-10 max-w-lg">
           {/* Arabic */}
           <div className="font-serif text-7xl md:text-8xl font-black mb-2 leading-none"
-            style={{ fontFamily: 'var(--font-playfair)', color: '#D4B896' }}>
+            style={{ fontFamily: 'var(--font-playfair)', color: '#AFD3E8' }}>
             KH
           </div>
           {/* Brand */}
@@ -241,13 +243,13 @@ export default function Home() {
           </div>
           {/* Divider */}
           <div className="flex items-center gap-3 justify-center mb-4">
-            <div className="h-px flex-1 max-w-[60px]" style={{ background: 'linear-gradient(to right, transparent, #7C1515)' }} />
-            <div className="text-h-cream text-[0.55rem] tracking-[4px] uppercase font-semibold">Specialty Coffee</div>
-            <div className="h-px flex-1 max-w-[60px]" style={{ background: 'linear-gradient(to left, transparent, #7C1515)' }} />
+            <div className="h-px flex-1 max-w-[60px]" style={{ background: 'linear-gradient(to right, transparent, #1B5E86)' }} />
+            <div className="text-h-cream text-[0.55rem] tracking-[4px] uppercase font-semibold">Kopi &amp; Teduh</div>
+            <div className="h-px flex-1 max-w-[60px]" style={{ background: 'linear-gradient(to left, transparent, #1B5E86)' }} />
           </div>
           {/* Tagline */}
           <p className="text-white/45 text-sm leading-relaxed max-w-sm mx-auto mt-3 mb-6">
-            Specialty coffee dan ruang sosial untuk menemani momen terbaikmu di Ternate.
+            Kopi hangat dan tempat berteduh yang nyaman — teman terbaik saat hujan turun di Ternate.
           </p>
           {/* Jam operasional */}
           {storeSettings && (() => {
@@ -320,7 +322,7 @@ export default function Home() {
             di tempat di mana semua orang merasa <em className="text-h-cream not-italic font-semibold">disambut</em>.
           </p>
           <p className="text-white/50 text-sm leading-relaxed">
-            Specialty coffee kami diracik dari biji pilihan, dipadukan dengan suasana
+            Kopi kami diseduh dari biji pilihan, dipadukan dengan suasana
             yang hangat untuk ngobrol, bekerja, atau sekadar menikmati waktu sendiri.
             Bagi kami, secangkir kopi yang baik adalah tentang momen — bukan sekadar rasa.
           </p>
@@ -331,8 +333,8 @@ export default function Home() {
       <section className="py-20 px-5">
         <div className="max-w-5xl mx-auto grid sm:grid-cols-3 gap-5">
           {[
-            { Icon: CoffeeIcon, title: 'Specialty Coffee', desc: 'Dari biji pilihan, diseduh dengan teknik yang tepat untuk setiap cangkir.' },
-            { Icon: UsersIcon, title: 'Ruang Sosial', desc: 'Tempat nongkrong, diskusi, dan bekerja dalam suasana yang nyaman.' },
+            { Icon: CoffeeIcon, title: 'Kopi Hangat', desc: 'Diseduh dari biji pilihan — teman paling setia saat hujan turun.' },
+            { Icon: UsersIcon, title: 'Teduh & Nyaman', desc: 'Ruang berteduh untuk ngobrol, bekerja, atau menikmati hujan dari balik jendela.' },
             { Icon: QrIcon, title: 'Order Mudah', desc: 'Scan QR di meja, pesan dari ponsel, pesanan langsung masuk ke dapur.' },
           ].map(({ Icon, title, desc }) => (
             <Section key={title} className="bg-h-card border border-h-border rounded-2xl p-7 hover:border-white/15 transition-colors">
@@ -483,9 +485,9 @@ export default function Home() {
           <div className="relative rounded-3xl overflow-hidden border border-h-border p-10">
             {/* bg glow */}
             <div className="absolute inset-0 pointer-events-none"
-              style={{ background: 'radial-gradient(ellipse at 50% 120%, rgba(124,21,21,0.4) 0%, transparent 65%)' }} />
+              style={{ background: 'radial-gradient(ellipse at 50% 120%, rgba(27,94,134,0.4) 0%, transparent 65%)' }} />
             <div className="relative z-10">
-              <div className="font-serif text-5xl mb-3" style={{ color: '#D4B896', fontFamily: 'var(--font-playfair)' }}>KH</div>
+              <div className="font-serif text-5xl mb-3" style={{ color: '#AFD3E8', fontFamily: 'var(--font-playfair)' }}>KH</div>
               <h3 className="font-sans font-black text-white text-xl uppercase tracking-wider mb-2">Ada yang bisa kami bantu?</h3>
               <p className="text-h-muted text-sm mb-8 leading-relaxed">
                 Reservasi tempat, pertanyaan menu, atau sekadar menyapa —<br />kami siap membantu lewat WhatsApp.
@@ -506,7 +508,7 @@ export default function Home() {
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-center sm:text-left">
             <div className="font-sans font-black text-white tracking-widest text-sm uppercase">KOTA HUJAN</div>
-            <div className="text-h-muted text-xs mt-0.5">Specialty Coffee · Ternate, Indonesia</div>
+            <div className="text-h-muted text-xs mt-0.5">Kopi &amp; Teduh · Ternate, Indonesia</div>
             {storeSettings && (
               <div className="text-h-muted text-xs mt-1">
                 🕐 {storeSettings.open_days} · {storeSettings.open_time}–{storeSettings.close_time}
