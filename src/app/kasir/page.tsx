@@ -1021,20 +1021,20 @@ export default function KasirPage() {
         <div
           onClick={() => setIsIdle(false)}
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center cursor-pointer select-none"
-          style={{ backgroundColor: '#1B5E86' }}
+          style={{ backgroundColor: '#EE7220' }}
         >
           <div className="text-center animate-pulse" style={{ animationDuration: '3s' }}>
-            <div className="font-serif text-7xl mb-2" style={{ color: '#AFD3E8', fontFamily: 'var(--font-playfair)', letterSpacing: '0.05em' }}>
-              KH
+            <div className="font-serif text-7xl mb-2" style={{ color: '#F6C193', fontFamily: 'var(--font-playfair)', letterSpacing: '0.05em' }}>
+              CK
             </div>
-            <div className="font-sans font-black text-3xl tracking-[0.3em] uppercase mb-1" style={{ color: '#AFD3E8' }}>
+            <div className="font-sans font-black text-3xl tracking-[0.3em] uppercase mb-1" style={{ color: '#F6C193' }}>
               KOTA HUJAN
             </div>
-            <div className="text-xs tracking-[0.25em] uppercase" style={{ color: '#87A9BD' }}>
+            <div className="text-xs tracking-[0.25em] uppercase" style={{ color: '#C79B77' }}>
               Kopi &amp; Teduh
             </div>
           </div>
-          <div className="absolute bottom-10 text-xs tracking-widest uppercase opacity-40" style={{ color: '#AFD3E8' }}>
+          <div className="absolute bottom-10 text-xs tracking-widest uppercase opacity-40" style={{ color: '#F6C193' }}>
             Ketuk untuk melanjutkan
           </div>
         </div>

@@ -81,10 +81,10 @@ function generatePlaceholder(item: MenuItem): string {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240">
     <defs>
       <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#1B5E86"/><stop offset="100%" stop-color="#081D2C"/>
+        <stop offset="0%" stop-color="#EE7220"/><stop offset="100%" stop-color="#2B1505"/>
       </linearGradient>
       <radialGradient id="glow" cx="50%" cy="45%" r="45%">
-        <stop offset="0%" stop-color="#2A76A8" stop-opacity="0.6"/>
+        <stop offset="0%" stop-color="#F08432" stop-opacity="0.6"/>
         <stop offset="100%" stop-color="transparent"/>
       </radialGradient>
     </defs>
@@ -92,7 +92,7 @@ function generatePlaceholder(item: MenuItem): string {
     <rect width="400" height="240" fill="url(#glow)"/>
     <text x="200" y="108" text-anchor="middle" font-size="58" opacity="0.9">${icon}</text>
     <text x="200" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="17" font-weight="700" fill="rgba(255,255,255,0.88)">${safeName}</text>
-    <text x="200" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="rgba(175,211,232,0.4)" letter-spacing="5">KOTA HUJAN</text>
+    <text x="200" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="rgba(246,193,147,0.4)" letter-spacing="5">KOTA HUJAN</text>
   </svg>`
   return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg)
 }
@@ -223,7 +223,7 @@ export default function Home() {
         {/* Background glow */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="w-[520px] h-[520px] rounded-full animate-hero-glow"
-            style={{ background: 'radial-gradient(circle, rgba(27,94,134,0.42) 0%, rgba(27,94,134,0.12) 45%, transparent 70%)' }} />
+            style={{ background: 'radial-gradient(circle, rgba(238,114,32,0.42) 0%, rgba(238,114,32,0.12) 45%, transparent 70%)' }} />
         </div>
         {/* Grain overlay */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -234,8 +234,8 @@ export default function Home() {
         <div className="relative z-10 max-w-lg">
           {/* Arabic */}
           <div className="font-serif text-7xl md:text-8xl font-black mb-2 leading-none"
-            style={{ fontFamily: 'var(--font-playfair)', color: '#AFD3E8' }}>
-            KH
+            style={{ fontFamily: 'var(--font-playfair)', color: '#F6C193' }}>
+            CK
           </div>
           {/* Brand */}
           <div className="font-sans font-black text-h-cream text-4xl md:text-5xl tracking-[0.25em] uppercase mb-3">
@@ -243,9 +243,9 @@ export default function Home() {
           </div>
           {/* Divider */}
           <div className="flex items-center gap-3 justify-center mb-4">
-            <div className="h-px flex-1 max-w-[60px]" style={{ background: 'linear-gradient(to right, transparent, #1B5E86)' }} />
+            <div className="h-px flex-1 max-w-[60px]" style={{ background: 'linear-gradient(to right, transparent, #EE7220)' }} />
             <div className="text-h-cream text-[0.55rem] tracking-[4px] uppercase font-semibold">Kopi &amp; Teduh</div>
-            <div className="h-px flex-1 max-w-[60px]" style={{ background: 'linear-gradient(to left, transparent, #1B5E86)' }} />
+            <div className="h-px flex-1 max-w-[60px]" style={{ background: 'linear-gradient(to left, transparent, #EE7220)' }} />
           </div>
           {/* Tagline */}
           <p className="text-white/45 text-sm leading-relaxed max-w-sm mx-auto mt-3 mb-6">
@@ -485,9 +485,9 @@ export default function Home() {
           <div className="relative rounded-3xl overflow-hidden border border-h-border p-10">
             {/* bg glow */}
             <div className="absolute inset-0 pointer-events-none"
-              style={{ background: 'radial-gradient(ellipse at 50% 120%, rgba(27,94,134,0.4) 0%, transparent 65%)' }} />
+              style={{ background: 'radial-gradient(ellipse at 50% 120%, rgba(238,114,32,0.4) 0%, transparent 65%)' }} />
             <div className="relative z-10">
-              <div className="font-serif text-5xl mb-3" style={{ color: '#AFD3E8', fontFamily: 'var(--font-playfair)' }}>KH</div>
+              <div className="font-serif text-5xl mb-3" style={{ color: '#F6C193', fontFamily: 'var(--font-playfair)' }}>CK</div>
               <h3 className="font-sans font-black text-white text-xl uppercase tracking-wider mb-2">Ada yang bisa kami bantu?</h3>
               <p className="text-h-muted text-sm mb-8 leading-relaxed">
                 Reservasi tempat, pertanyaan menu, atau sekadar menyapa —<br />kami siap membantu lewat WhatsApp.

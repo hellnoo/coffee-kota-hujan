@@ -57,5 +57,5 @@ Customer scan QR di meja → pesan dari HP → realtime ke kasir.
   masih placeholder) dan nomor WA bila bukan nomor owner
 - [ ] `src/app/kasir/page.tsx` — cek `OWNER_WA` (tujuan daily report)
 - [ ] Isi menu lewat `/admin`, generate QR meja lewat `/admin/qr`
-- [ ] Opsional: sesuaikan palet warna (maroon/cream bawaan Hallu) di
-  `tailwind.config.ts`, `src/app/globals.css`, `public/icon.svg`
+- [ ] Opsional: `public/icon.svg` adalah rekreasi vektor dari logo asli
+  (monogram CK oranye) — ganti dengan file vektor resmi bila ada

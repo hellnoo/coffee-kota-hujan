@@ -1,16 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <defs>
-    <radialGradient id="bg" cx="50%" cy="38%" r="72%">
-      <stop offset="0%" stop-color="#22699A"/>
-      <stop offset="60%" stop-color="#1B5E86"/>
-      <stop offset="100%" stop-color="#123F5C"/>
-    </radialGradient>
-  </defs>
-  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
-  <!-- Monogram KH -->
-  <text x="256" y="252" text-anchor="middle" font-family="'Playfair Display', Georgia, serif" font-size="170" font-weight="700" fill="#C6E2F2">KH</text>
-  <!-- KOTA HUJAN wordmark -->
-  <text x="256" y="342" text-anchor="middle" font-family="'Playfair Display', Georgia, serif" font-size="52" font-weight="700" fill="#C6E2F2" letter-spacing="4">KOTA HUJAN</text>
-  <!-- Tagline -->
-  <text x="256" y="390" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="600" fill="#AFD3E8" letter-spacing="9" opacity="0.85">KOPI &amp; TEDUH</text>
+  <rect width="512" height="512" rx="112" fill="#FFF8F2"/>
+  <g fill="none" stroke="#EE7220" stroke-linecap="round">
+    <path d="M 287 148 A 120 120 0 1 0 287 332" stroke-width="32"/>
+    <path d="M 320 130 L 320 350" stroke-width="28"/>
+    <path d="M 322 242 L 408 142" stroke-width="28"/>
+    <path d="M 322 242 L 408 350" stroke-width="28"/>
+  </g>
+  <path d="M 185 212 Q 245 198 305 214 Q 296 266 248 290 Q 205 262 185 212 Z" fill="#EE7220"/>
+  <ellipse cx="243" cy="215" rx="54" ry="12" fill="#FFF8F2"/>
+  <path d="M 196 238 Q 246 254 296 236" stroke="#FFF8F2" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <circle cx="300" cy="118" r="12" fill="#EE7220"/>
+  <path d="M 306 104 Q 300 74 322 56 Q 348 76 330 102 Q 320 110 306 104 Z" fill="#EE7220"/>
+  <text x="256" y="408" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="31" font-weight="700" fill="#EE7220" letter-spacing="1">COFFEE KOTA HUJAN</text>
+  <path d="M 140 432 Q 256 468 372 432" stroke="#EE7220" stroke-width="11" fill="none" stroke-linecap="round"/>
+  <path d="M 180 456 Q 256 478 332 456" stroke="#EE7220" stroke-width="7" fill="none" stroke-linecap="round"/>
 </svg>
