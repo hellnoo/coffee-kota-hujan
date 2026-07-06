@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import type { MenuItem, StoreSettings } from '@/types'
 
-const WA = 'https://wa.me/6281245400031'
+const WA = 'https://wa.me/6282211542132'
 const IG = 'https://instagram.com/coffee.kota.hujan'
 const TIKTOK = 'https://tiktok.com/@coffee.kota.hujan'
 const IG_HANDLE = '@coffee.kota.hujan'

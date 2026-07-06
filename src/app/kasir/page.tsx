@@ -6,7 +6,7 @@ import type { MenuItem, Order, OrderItem, Shift } from '@/types'
 import { EMPLOYEES } from '@/types'
 import { subscribePush, sendPush } from '@/lib/push'
 
-const OWNER_WA = '6281245400031'
+const OWNER_WA = '6282211542132'
 
 // ═══ OUTLET ════════════════════════════════════════════════
 // Kasir cafe (default): /kasir — kasir street: /kasir?outlet=street
