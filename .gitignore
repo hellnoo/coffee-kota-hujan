@@ -25,3 +25,6 @@ yarn-error.log*
 
 # TS incremental build
 tsconfig.tsbuildinfo
+
+# Vercel
+.vercel/

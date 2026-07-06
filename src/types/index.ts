@@ -8,6 +8,7 @@ export type Shift = {
   opening_notes: string | null
   closing_notes: string | null
   handover_to: string | null
+  outlet?: string        // 'cafe' | 'street'
 }
 
 export const EMPLOYEES = ['Amin', 'Rama', 'Ubuy'] as const
@@ -54,4 +55,5 @@ export type Order = {
   payment_method: string | null
   rating: number | null
   created_at: string
+  outlet?: string        // 'cafe' | 'street'
 }

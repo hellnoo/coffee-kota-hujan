@@ -4,9 +4,9 @@ import { supabase } from '@/lib/supabase'
 import type { MenuItem, StoreSettings } from '@/types'
 
 const WA = 'https://wa.me/6281245400031'
-const IG = 'https://instagram.com/coffee.kotahujan'
-const TIKTOK = 'https://tiktok.com/@coffee.kotahujan'
-const IG_HANDLE = '@coffee.kotahujan'
+const IG = 'https://instagram.com/coffee.kota.hujan'
+const TIKTOK = 'https://tiktok.com/@coffee.kota.hujan'
+const IG_HANDLE = '@coffee.kota.hujan'
 
 // ── Lokasi Kota Hujan ──────────────────────────────────────────
 // TODO: ganti LAT,LNG dengan koordinat persis dari Google Maps (Share → Copy link)

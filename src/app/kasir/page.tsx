@@ -8,6 +8,11 @@ import { subscribePush, sendPush } from '@/lib/push'
 
 const OWNER_WA = '6281245400031'
 
+// ═══ OUTLET ════════════════════════════════════════════════
+// Kasir cafe (default): /kasir — kasir street: /kasir?outlet=street
+type Outlet = 'cafe' | 'street'
+const OUTLET_LABELS: Record<Outlet, string> = { cafe: 'Cafe', street: 'Street' }
+
 // ═══ OFFLINE / PENDING QUEUE ═══════════════════════════════
 const PENDING_ORDERS_KEY = 'kotahujan-kasir-pending-orders'
 const MENU_CACHE_KEY = 'kotahujan-kasir-menu-cache'
@@ -21,6 +26,7 @@ type PendingOrder = {
     note: string | null
     status: 'new'
     payment_method: string | null
+    outlet: string
   }
   queuedAt: number
   retries: number
@@ -75,7 +81,7 @@ function formatRp(n: number) { return 'Rp ' + n.toLocaleString('id-ID') }
 function formatTime(s: string) { return new Date(s).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) }
 function orderTotal(items: OrderItem[]) { return items.reduce((s, i) => s + i.price * i.qty, 0) }
 
-function buildDailyReport(orders: Order[], date: string, shifts: Shift[] = []): string {
+function buildDailyReport(orders: Order[], date: string, shifts: Shift[] = [], outletLabel = 'Cafe'): string {
   const d = new Date(date)
   const tanggal = d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
   const revenue = orders.reduce((s, o) => s + orderTotal(o.items), 0)
@@ -119,7 +125,7 @@ function buildDailyReport(orders: Order[], date: string, shifts: Shift[] = []): 
   })
 
   const lines = [
-    `📊 *LAPORAN HARIAN KOTA HUJAN*`,
+    `📊 *LAPORAN HARIAN KOTA HUJAN — ${outletLabel.toUpperCase()}*`,
     `📅 ${tanggal}`,
     ``,
     `💰 *Total Pendapatan: ${formatRp(revenue)}*`,
@@ -403,7 +409,7 @@ function OrderCard({ order, onDone, onCancel, onReady, onPreparing }: { order: O
 
 const CATEGORIES = ['Kopi', 'Non-Kopi', 'Makanan', 'Lainnya']
 
-function ManualOrderForm({ onSubmitted, isOnline }: { onSubmitted: () => void; isOnline: boolean }) {
+function ManualOrderForm({ onSubmitted, isOnline, outlet }: { onSubmitted: () => void; isOnline: boolean; outlet: Outlet }) {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([])
   const [cart, setCart] = useState<Record<string, number>>({})
   const [name, setName] = useState('')
@@ -453,6 +459,7 @@ function ManualOrderForm({ onSubmitted, isOnline }: { onSubmitted: () => void; i
       note: null,
       status: 'new' as const,
       payment_method: payMethod,
+      outlet,
     }
 
     // Kalau offline → queue ke localStorage
@@ -609,28 +616,35 @@ export default function KasirPage() {
 
   useEffect(() => { if (localStorage.getItem('kotahujan-kasir') === 'ok') setAuthed(true) }, [])
 
+  // Outlet dari URL: /kasir?outlet=street (default cafe)
+  const [outlet, setOutlet] = useState<Outlet>('cafe')
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('outlet') === 'street') setOutlet('street')
+  }, [])
+
   const loadNew = async () => {
-    const { data } = await supabase.from('orders').select('*').in('status', ['new', 'preparing', 'ready']).order('created_at', { ascending: true })
+    const { data } = await supabase.from('orders').select('*').eq('outlet', outlet).in('status', ['new', 'preparing', 'ready']).order('created_at', { ascending: true })
     if (data) setNewOrders(data as Order[])
     setLoading(false)
   }
 
   const loadDone = async (date?: string) => {
     const { start, end } = getBusinessDayBounds(date || rekapDate)
-    const { data } = await supabase.from('orders').select('*').eq('status', 'done').gte('created_at', start.toISOString()).lte('created_at', end.toISOString()).order('created_at', { ascending: false })
+    const { data } = await supabase.from('orders').select('*').eq('outlet', outlet).eq('status', 'done').gte('created_at', start.toISOString()).lte('created_at', end.toISOString()).order('created_at', { ascending: false })
     if (data) setDoneOrders(data as Order[])
   }
 
   useEffect(() => {
     if (!authed) return
     loadNew().then(() => { initialized.current = true })
-  }, [authed])
+  }, [authed, outlet]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!authed) return
-    const ch = supabase.channel('kasir-orders')
+    const ch = supabase.channel(`kasir-orders-${outlet}`)
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, payload => {
         const order = payload.new as Order
+        if ((order.outlet || 'cafe') !== outlet) return
         setNewOrders(prev => {
           if (prev.find(o => o.id === order.id)) return prev
           return [...prev, order].sort((a, b) => a.created_at.localeCompare(b.created_at))
@@ -644,6 +658,7 @@ export default function KasirPage() {
       })
       .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders' }, payload => {
         const updated = payload.new as Order
+        if ((updated.outlet || 'cafe') !== outlet) return
         if (updated.status === 'done') {
           setNewOrders(prev => prev.filter(o => o.id !== updated.id))
           setDoneOrders(prev => prev.find(o => o.id === updated.id) ? prev : [updated, ...prev])
@@ -655,12 +670,13 @@ export default function KasirPage() {
       })
       .subscribe()
     return () => { supabase.removeChannel(ch) }
-  }, [authed])
+  }, [authed, outlet])
 
   useEffect(() => {
     const count = newOrders.length
-    document.title = count > 0 ? `(${count}) Order Baru | Kota Hujan Kasir` : 'Kota Hujan Kasir'
-  }, [newOrders])
+    const base = `Kota Hujan Kasir · ${OUTLET_LABELS[outlet]}`
+    document.title = count > 0 ? `(${count}) Order Baru | ${base}` : base
+  }, [newOrders, outlet])
 
   // Fix: reload orders saat tab kembali aktif (Realtime kadang disconnect saat tab lama tidak aktif)
   useEffect(() => {
@@ -670,19 +686,19 @@ export default function KasirPage() {
     }
     document.addEventListener('visibilitychange', handleVisibility)
     return () => document.removeEventListener('visibilitychange', handleVisibility)
-  }, [authed]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [authed, outlet]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── SHIFT MANAGEMENT ─────────────────────────────────────
-  // Load shift aktif dari Supabase saat login
+  // Load shift aktif dari Supabase saat login (per outlet)
   useEffect(() => {
     if (!authed) return
-    supabase.from('shifts').select('*').is('ended_at', null)
+    supabase.from('shifts').select('*').eq('outlet', outlet).is('ended_at', null)
       .order('started_at', { ascending: false }).limit(1).single()
       .then(({ data }) => {
         if (data) setActiveShift(data as Shift)
         else setShowStartShift(true) // belum ada shift → tampilkan dialog start
       })
-  }, [authed])
+  }, [authed, outlet])
 
   // Tick timer — re-render tiap 60s untuk update durasi shift
   useEffect(() => {
@@ -694,7 +710,7 @@ export default function KasirPage() {
   const startShift = async (employee: string, openingNotes?: string) => {
     setShiftLoading(true)
     const { data } = await supabase.from('shifts')
-      .insert({ employee_name: employee, opening_notes: openingNotes || null })
+      .insert({ employee_name: employee, opening_notes: openingNotes || null, outlet })
       .select('*').single()
     if (data) {
       setActiveShift(data as Shift)
@@ -855,10 +871,12 @@ export default function KasirPage() {
     const { start, end } = getBusinessDayBounds(today)
     const [ordersRes, shiftsRes] = await Promise.all([
       supabase.from('orders').select('*')
+        .eq('outlet', outlet)
         .eq('status', 'done')
         .gte('created_at', start.toISOString())
         .lte('created_at', end.toISOString()),
       supabase.from('shifts').select('*')
+        .eq('outlet', outlet)
         .gte('started_at', start.toISOString())
         .lte('started_at', end.toISOString())
         .order('started_at', { ascending: true }),
@@ -883,6 +901,7 @@ export default function KasirPage() {
 
       // Yesterday + last 7 days
       const { data: weekData } = await supabase.from('orders').select('*')
+        .eq('outlet', outlet)
         .eq('status', 'done')
         .gte('created_at', weekStart.toISOString())
 
@@ -989,7 +1008,7 @@ export default function KasirPage() {
           <div className="font-sans text-2xl font-black text-white tracking-widest uppercase">KOTA HUJAN</div>
           <div className="flex items-center gap-2 justify-center mt-1">
             <div className="h-px w-6 bg-h-red" />
-            <div className="text-h-cream text-[0.5rem] tracking-[3px] uppercase font-semibold">Dashboard Kasir</div>
+            <div className="text-h-cream text-[0.5rem] tracking-[3px] uppercase font-semibold">Kasir {OUTLET_LABELS[outlet]}</div>
             <div className="h-px w-6 bg-h-red" />
           </div>
         </div>
@@ -1043,7 +1062,7 @@ export default function KasirPage() {
         <div className="max-w-4xl mx-auto px-5 py-4 flex items-center justify-between">
           <div>
             <div className="font-sans text-xl font-black text-white tracking-widest uppercase">KOTA HUJAN</div>
-            <div className="text-h-cream text-[0.55rem] tracking-[3px] uppercase font-semibold mt-0.5">Dashboard Kasir</div>
+            <div className="text-h-cream text-[0.55rem] tracking-[3px] uppercase font-semibold mt-0.5">Kasir {OUTLET_LABELS[outlet]}{outlet === 'street' ? ' 🛵' : ''}</div>
           </div>
           <div className="flex items-center gap-3 flex-wrap justify-end">
             {/* Active Shift badge */}
@@ -1110,7 +1129,7 @@ export default function KasirPage() {
 
       <main className="max-w-4xl mx-auto px-4 py-5">
         {tab === 'manual' ? (
-          <ManualOrderForm isOnline={isOnline} onSubmitted={() => { setTab('new'); setPendingCount(loadPendingOrders().length) }} />
+          <ManualOrderForm isOnline={isOnline} outlet={outlet} onSubmitted={() => { setTab('new'); setPendingCount(loadPendingOrders().length) }} />
         ) : loading ? (
           <div className="text-center text-h-muted text-sm pt-16">Memuat pesanan...</div>
         ) : tab === 'new' ? (
@@ -1325,7 +1344,7 @@ export default function KasirPage() {
           ? (ratedOrders.reduce((s, o) => s + (o.rating || 0), 0) / ratedOrders.length).toFixed(1)
           : null
         const methodLabels: Record<string, string> = { tunai: '💵 Tunai', qris: '⬛ QRIS', transfer: '🏦 Transfer', lainnya: '💳 Lainnya' }
-        const waText = aiReport || buildDailyReport(closeReportOrders, today, closeReportShifts)
+        const waText = aiReport || buildDailyReport(closeReportOrders, today, closeReportShifts, OUTLET_LABELS[outlet])
         const waUrl = `https://wa.me/${OWNER_WA}?text=${encodeURIComponent(waText)}`
 
         return (

@@ -30,8 +30,10 @@ create table if not exists orders (
   phone text,
   payment_method text,
   rating int,
+  outlet text not null default 'cafe',   -- 'cafe' | 'street'
   created_at timestamptz default now()
 );
+create index if not exists orders_outlet_idx on orders(outlet);
 
 create table if not exists store_settings (
   id int primary key,
@@ -49,7 +51,8 @@ create table if not exists shifts (
   ended_at timestamptz,
   opening_notes text,
   closing_notes text,
-  handover_to text
+  handover_to text,
+  outlet text not null default 'cafe'    -- 'cafe' | 'street'
 );
 
 create table if not exists push_subscriptions (
