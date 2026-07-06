@@ -16,9 +16,7 @@ const LOC = {
   label: 'Coffee Kota Hujan',
   address: 'Kelurahan Stadion, Ternate Tengah, Kota Ternate, Maluku Utara',
 }
-const mapsEmbed = `https://maps.google.com/maps?q=${LOC.lat},${LOC.lng}&z=17&output=embed`
-const mapsDirections = `https://www.google.com/maps/dir/?api=1&destination=${LOC.lat},${LOC.lng}`
-const mapsView = `https://www.google.com/maps/search/?api=1&query=${LOC.lat},${LOC.lng}`
+// Koordinat & alamat bisa dioverride dari /admin (Pengaturan → Lokasi)
 
 // Social SVG icons
 const InstagramIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
@@ -174,6 +172,17 @@ export default function Home() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([])
   const [navScrolled, setNavScrolled] = useState(false)
   const [storeSettings, setStoreSettings] = useState<StoreSettings | null>(null)
+
+  // Lokasi: pakai isian admin bila ada, fallback ke konstanta LOC
+  const loc = {
+    lat: storeSettings?.location_lat ?? LOC.lat,
+    lng: storeSettings?.location_lng ?? LOC.lng,
+    label: LOC.label,
+    address: storeSettings?.location_address || LOC.address,
+  }
+  const mapsEmbed = `https://maps.google.com/maps?q=${loc.lat},${loc.lng}&z=17&output=embed`
+  const mapsDirections = `https://www.google.com/maps/dir/?api=1&destination=${loc.lat},${loc.lng}`
+  const mapsView = `https://www.google.com/maps/search/?api=1&query=${loc.lat},${loc.lng}`
 
   useEffect(() => {
     supabase.from('menu_items').select('*').eq('available', true).order('category').order('name').limit(12)
@@ -354,7 +363,7 @@ export default function Home() {
           <div className="text-center mb-8">
             <div className="text-h-cream text-[0.55rem] tracking-[4px] uppercase font-semibold mb-3">Lokasi</div>
             <h2 className="font-sans font-black text-white text-3xl uppercase tracking-wider mb-2">Mampir Yuk</h2>
-            <p className="text-h-muted text-sm">{LOC.address}</p>
+            <p className="text-h-muted text-sm">{loc.address}</p>
           </div>
 
           <div className="grid lg:grid-cols-5 gap-6">
@@ -366,8 +375,8 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-full bg-h-red/10 border border-h-red/25 flex items-center justify-center text-h-cream mb-4">
                   <MapPinIcon className="w-6 h-6" />
                 </div>
-                <div className="text-white font-bold text-sm">{LOC.label}</div>
-                <div className="text-h-muted text-xs mt-1">{LOC.address}</div>
+                <div className="text-white font-bold text-sm">{loc.label}</div>
+                <div className="text-h-muted text-xs mt-1">{loc.address}</div>
                 <div className="flex items-center gap-1.5 text-h-cream text-xs font-bold mt-3 uppercase tracking-wider">
                   Buka peta <ArrowIcon className="w-3.5 h-3.5" />
                 </div>
@@ -390,8 +399,8 @@ export default function Home() {
                     <MapPinIcon className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="font-bold text-white text-sm">{LOC.label}</div>
-                    <div className="text-h-muted text-xs mt-0.5 leading-relaxed">{LOC.address}</div>
+                    <div className="font-bold text-white text-sm">{loc.label}</div>
+                    <div className="text-h-muted text-xs mt-0.5 leading-relaxed">{loc.address}</div>
                   </div>
                 </div>
                 {storeSettings && (

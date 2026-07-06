@@ -919,6 +919,42 @@ export default function AdminPage() {
                   </div>
                 </div>
 
+                <div className="h-px bg-h-border" />
+
+                {/* Lokasi toko — tampil di peta landing page */}
+                <div>
+                  <label className="text-xs text-h-muted font-bold uppercase tracking-wide block mb-1.5">Alamat</label>
+                  <input
+                    value={settings.location_address ?? ''}
+                    onChange={e => setSettings(s => ({ ...s, location_address: e.target.value || null }))}
+                    placeholder="Kelurahan Stadion, Ternate Tengah, Kota Ternate"
+                    className="w-full bg-h-dark border border-h-border rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-h-red text-white placeholder-h-muted transition-colors"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-xs text-h-muted font-bold uppercase tracking-wide block mb-1.5">Latitude</label>
+                    <input
+                      type="number" step="any"
+                      value={settings.location_lat ?? ''}
+                      onChange={e => setSettings(s => ({ ...s, location_lat: e.target.value === '' ? null : parseFloat(e.target.value) }))}
+                      placeholder="0.7880"
+                      className="w-full bg-h-dark border border-h-border rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-h-red text-white placeholder-h-muted transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs text-h-muted font-bold uppercase tracking-wide block mb-1.5">Longitude</label>
+                    <input
+                      type="number" step="any"
+                      value={settings.location_lng ?? ''}
+                      onChange={e => setSettings(s => ({ ...s, location_lng: e.target.value === '' ? null : parseFloat(e.target.value) }))}
+                      placeholder="127.3830"
+                      className="w-full bg-h-dark border border-h-border rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-h-red text-white placeholder-h-muted transition-colors"
+                    />
+                  </div>
+                </div>
+                <p className="text-xs text-h-muted">💡 Cara ambil koordinat: buka Google Maps → tekan lama / klik kanan titik toko → angka koordinat muncul paling atas, klik untuk salin. Peta &amp; tombol petunjuk arah di landing page langsung ikut titik ini.</p>
+
                 <button
                   onClick={saveSettings}
                   disabled={settingsSaving}

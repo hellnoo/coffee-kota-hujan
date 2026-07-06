@@ -20,6 +20,9 @@ export type StoreSettings = {
   close_time: string       // "22:00"
   open_days: string        // "Senin – Minggu"
   is_manually_closed: boolean
+  location_lat?: number | null      // kosong = pakai default di landing page
+  location_lng?: number | null
+  location_address?: string | null
 }
 
 export type MenuItem = {

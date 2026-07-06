@@ -40,7 +40,10 @@ create table if not exists store_settings (
   open_time text not null default '08:00',
   close_time text not null default '22:00',
   open_days text not null default 'Senin – Minggu',
-  is_manually_closed boolean not null default false
+  is_manually_closed boolean not null default false,
+  location_lat double precision,   -- kosong = pakai default di kode
+  location_lng double precision,
+  location_address text
 );
 insert into store_settings (id) values (1) on conflict do nothing;
 
