@@ -1,8 +1,8 @@
 {
-  "name": "Coffee Kota Hujan",
-  "short_name": "Kota Hujan",
-  "description": "QR Menu & Order — Kota Hujan Café, Ternate",
-  "start_url": "/menu",
+  "name": "Kota Hujan Kasir — Street",
+  "short_name": "Kasir Street",
+  "description": "Dashboard kasir outlet street — Coffee Kota Hujan",
+  "start_url": "/kasir?outlet=street",
   "display": "standalone",
   "background_color": "#120c07",
   "theme_color": "#EE7220",

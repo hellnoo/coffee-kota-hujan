@@ -126,6 +126,10 @@ export default function AdminPage() {
   const [manualGlbUrl, setManualGlbUrl] = useState('')
 
   useEffect(() => { if (localStorage.getItem('kotahujan-admin') === 'ok') setAuthed(true) }, [])
+  // Manifest PWA khusus admin — install dari halaman ini = app admin, bukan app customer
+  useEffect(() => {
+    document.querySelectorAll('link[rel="manifest"]').forEach(l => l.setAttribute('href', '/manifest-admin.json'))
+  }, [])
   useEffect(() => { if (authed) { loadItems(); loadSettings() } }, [authed]) // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { if (authed && tab === 'analitik' && orders.length === 0) loadOrders() }, [authed, tab]) // eslint-disable-line react-hooks/exhaustive-deps
 

@@ -1,8 +1,8 @@
 {
-  "name": "Coffee Kota Hujan",
-  "short_name": "Kota Hujan",
-  "description": "QR Menu & Order — Kota Hujan Café, Ternate",
-  "start_url": "/menu",
+  "name": "Kota Hujan Admin",
+  "short_name": "Admin CKH",
+  "description": "Panel admin — Coffee Kota Hujan",
+  "start_url": "/admin",
   "display": "standalone",
   "background_color": "#120c07",
   "theme_color": "#EE7220",

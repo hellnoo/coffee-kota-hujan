@@ -622,6 +622,12 @@ export default function KasirPage() {
     if (new URLSearchParams(window.location.search).get('outlet') === 'street') setOutlet('street')
   }, [])
 
+  // Manifest PWA khusus kasir — install dari halaman ini = app kasir, bukan app customer
+  useEffect(() => {
+    const href = outlet === 'street' ? '/manifest-kasir-street.json' : '/manifest-kasir.json'
+    document.querySelectorAll('link[rel="manifest"]').forEach(l => l.setAttribute('href', href))
+  }, [outlet])
+
   const loadNew = async () => {
     const { data } = await supabase.from('orders').select('*').eq('outlet', outlet).in('status', ['new', 'preparing', 'ready']).order('created_at', { ascending: true })
     if (data) setNewOrders(data as Order[])
